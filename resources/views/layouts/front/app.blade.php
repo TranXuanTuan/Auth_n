@@ -55,6 +55,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(checkPermission(['user','editor','admin']))
+                                    <a class="dropdown-item" href="{{ url('users') }}">Access All Users</a>
+                                    @endif
+                                    @if(checkPermission(['editor','admin']))
+                                    <a class="dropdown-item" href="{{ url('editor') }}">Access Editor</a>
+                                    @endif
+                                     @if(checkPermission(['admin']))
+                                    <a class="dropdown-item" href="{{ url('admin') }}">Access Admin</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

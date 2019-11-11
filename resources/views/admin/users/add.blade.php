@@ -43,6 +43,18 @@
                                 <label>Confirm Password</label>
                                 <input class="form-control" type="password" name="password_confirmation" placeholder="Please Confirm Password" />
                             </div>
+                            <div class="form-group">
+                                <label>User Level</label>
+                                <label class="radio-inline">
+                                    <input name="is_permission" value="2" type="radio">Admin
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="is_permission" value="1" type="radio">Editor
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="is_permission" value=" " type="radio">User
+                                </label>
+                            </div>
                             <button type="submit" class="btn btn-default">Add User</button>
                             <button type="reset" class="btn btn-default">Reset</button>
                         <form>

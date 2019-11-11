@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Auth::routes();
 Auth::routes(['verify' => true]);
 
+Route::get('admin/logout','UserController@getadminLogout');
+
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
@@ -28,7 +31,8 @@ Route::group(['middleware'=>'auth'], function () {
 	Route::get('admin',['middleware'=>'check-permission:admin','uses'=>'HomeController@admin']);
 });
 
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function()
+	{
 	//users
 	Route::group(['prefix'=>'users'],function(){
 		Route::get('list','UserController@getList');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -28,7 +29,7 @@ class UserController extends Controller
             'password_confirmation' => 'min:8|same:password'
         ]);
 
-        $user = User::create($request->only('email', 'name', 'password','password_confirmation'));
+        $user = User::create($request->only('email', 'name', 'password','password_confirmation','is_permission'));
 
         return redirect('admin/users/add')
             ->with('flash_message',
@@ -42,13 +43,24 @@ class UserController extends Controller
 
     public function postEdit(Request $request,$id)
     {
-        $user = User::findorFail($id);
+        
         $this -> validate($request,[
             'name'=>'required|max:120',
-            'email'=>'required|email|unique:users,email,'.$id
         ]);
-        $input = $request->only(['name', 'email', /*'password'*/]);  
-        $user->fill($input)->save();
+        $user = User::findorFail($id);
+        $user->name = $request->name;
+        $user->is_permission = $request->is_permission; 
+        if ($request->changePassword == "on") {
+            $this ->validate($request,
+            [
+                'password'=>'required|min:8|confirmed',
+                'password_confirmation' => 'min:8|same:password'
+            ]);
+
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
 
         return redirect('admin/users/edit/'.$id)
             ->with('flash_message',
@@ -61,5 +73,12 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('admin/users/list')->with('flash_message','User successfully deleted.');
+    }
+
+
+    public function getadminLogout()
+    {
+        Auth::logout();
+        return redirect('home');
     }
 }

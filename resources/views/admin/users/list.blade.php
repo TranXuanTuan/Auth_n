@@ -11,18 +11,19 @@
                         </h1>
                     </div>
                     <!-- /.col-lg-12 -->
-                   
-                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                     @if(session('flash_message'))
+                    @if(session('flash_message'))
                         <div class="alert alert-success">
                             {{session('flash_message')}}
                         </div>
                     @endif
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    
                         <thead>
                             <tr align="center">
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Date/Time Added</th>
                                 <th>Delete</th>
                                 <th>Edit</th>
@@ -34,6 +35,15 @@
                                     <td>{{$user->id}}</td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
+                                    <td>
+                                        @if($user->is_permission == 2)
+                                        {{"Admin"}}
+                                        @elseif($user->is_permission == 1)
+                                        {{"Editor"}}
+                                        @else
+                                        {{"User"}}
+                                        @endif
+                                    </td>
                                     <td>{{$user->created_at->format('F d, Y h:ia') }}</td>
                                     <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/users/delete/{{$user->id}}"> Delete</a></td>
                                     <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/users/edit/{{$user->id}}">Edit</a></td>
