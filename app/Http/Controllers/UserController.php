@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function getList()
     {
-        $users = User::all();
+        $users = User::paginate(5);
     	return view('admin.users.list',['users'=>$users]);	
     }
 
@@ -28,8 +28,14 @@ class UserController extends Controller
             'password'=>'required|min:8|confirmed',
             'password_confirmation' => 'min:8|same:password'
         ]);
-
-        $user = User::create($request->only('email', 'name', 'password','password_confirmation','is_permission'));
+        
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->is_permission = $request->is_permission;
+        $user->verified = $request->verified;
+        $user->save();  
 
         return redirect('admin/users/add')
             ->with('flash_message',

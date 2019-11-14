@@ -55,6 +55,11 @@
                                     <input name="is_permission" value=" " type="radio">User
                                 </label>
                             </div>
+                            <div class="form-group">
+                            <label class="checkbox-inline">
+                                <input name="verified" value="1" type="checkbox">Email Verify
+                            </label>
+                            </div>
                             <button type="submit" class="btn btn-default">Add User</button>
                             <button type="reset" class="btn btn-default">Reset</button>
                         <form>

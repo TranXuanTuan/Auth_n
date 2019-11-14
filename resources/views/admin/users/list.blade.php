@@ -25,8 +25,8 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Date/Time Added</th>
-                                <th>Delete</th>
                                 <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,12 +45,13 @@
                                         @endif
                                     </td>
                                     <td>{{$user->created_at->format('F d, Y h:ia') }}</td>
-                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/users/delete/{{$user->id}}"> Delete</a></td>
                                     <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/users/edit/{{$user->id}}">Edit</a></td>
+                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/users/delete/{{$user->id}}"> Delete</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $users->links() }}
                 </div>
                 <!-- /.row -->
             </div>

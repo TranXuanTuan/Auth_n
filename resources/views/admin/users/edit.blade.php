@@ -67,6 +67,7 @@
                                     @endif type="radio">User
                                 </label>
                             </div>
+                            
                             <button type="submit" class="btn btn-default">Edit User</button>
                             <button type="reset" class="btn btn-default">Reset</button>
                         <form>
