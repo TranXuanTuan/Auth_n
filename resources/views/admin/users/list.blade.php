@@ -1,4 +1,4 @@
- @extends('layouts.back.master')
+ @extends('layouts.backend.master')
 
  @section('content')
  <!-- Page Content -->
