@@ -20,11 +20,9 @@ class CheckPermission
     {
         $permission = explode('|', $permission);
 
-        
         if(checkPermission($permission)){
             return $next($request);
         }
-
 
         return response()->view('errors.check-permission');
     }
